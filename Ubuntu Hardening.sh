@@ -107,22 +107,30 @@ fi
 # ================================
 print_banner "Add or Configure a Privileged User"
 
-echo_question "Would you like to create a new privileged user? (y/n) " 
-read -r CREATE_USER
-if [ "$CREATE_USER" == "y" ]; then
+echo_question "Choose an option: [c]reate new user, [e]xisting user, [s]kip: "
+read -r USER_CHOICE
+
+if [ "$USER_CHOICE" == "c" ]; then
   echo -n "Enter the new username: "
   read -r NEW_USER
   sudo useradd -m -s /bin/bash "$NEW_USER"
   sudo passwd "$NEW_USER"
-else
+elif [ "$USER_CHOICE" == "e" ]; then
   echo -n "Enter the existing username to grant privileges: "
   read -r NEW_USER
+elif [ "$USER_CHOICE" == "s" ]; then
+  echo_info "Skipping user privilege configuration."
+else
+  echo_error "Invalid option. Skipping."
+  USER_CHOICE="s"
 fi
 
-# Grant sudo privileges without password
-echo "$NEW_USER ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/$NEW_USER > /dev/null
-sudo chmod 440 /etc/sudoers.d/$NEW_USER
-echo_success "[SECURE] $NEW_USER now has passwordless sudo access."
+if [[ "$USER_CHOICE" == "c" || "$USER_CHOICE" == "e" ]]; then
+  # Grant sudo privileges without password
+  echo "$NEW_USER ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/$NEW_USER > /dev/null
+  sudo chmod 440 /etc/sudoers.d/$NEW_USER
+  echo_success "[SECURE] $NEW_USER now has passwordless sudo access."
+fi
 
 # ================================
 # SSH Configuration

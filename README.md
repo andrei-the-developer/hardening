@@ -1,9 +1,7 @@
 # hardening
 
-You can easily execute this on yout ubuntu server with:
+You can easily execute this on yout ubuntu server with one of the following comands:
 
-curl -sSL https://raw.githubusercontent.com/andrei-the-developer/hardening/refs/heads/main/Ubuntu%20Hardening.sh | sudo bash
+curl -sSL -o hardening.sh https://raw.githubusercontent.com/andrei-the-developer/hardening/refs/heads/main/Ubuntu%20Hardening.sh && chmod +x hardening.sh && ./hardening.sh
 
-or
-
-wget -qO- https://raw.githubusercontent.com/andrei-the-developer/hardening/refs/heads/main/Ubuntu%20Hardening.sh | sudo bash
+wget -qO- https://raw.githubusercontent.com/andrei-the-developer/hardening/refs/heads/main/Ubuntu%20Hardening.sh && chmod +x hardening.sh && ./hardening.sh
