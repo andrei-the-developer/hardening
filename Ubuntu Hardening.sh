@@ -1,4 +1,5 @@
 #!/bin/bash
+sudo -v
 
 # ================================
 # Ubuntu Hardening & Setup Script
