@@ -351,7 +351,7 @@ if software_is_installed "fail2ban-server"; then
 
     # Create or overwrite jail.local with SSH protection settings
     cat <<EOF | tee /etc/fail2ban/jail.local > /dev/null
-[ssh]
+[sshd]
 enabled   = true
 banaction = iptables-multiport
 port      = ssh
